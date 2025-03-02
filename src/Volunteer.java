@@ -24,10 +24,9 @@ public class Volunteer extends StaffMember {
 
     @Override
     public String toString() {
-        return ">>> Volunteer : \n" +
-                " \nsalary= " + salary +
-                " \n id= " + id +
-                " \n name= " + name +
-                " \n address= " + address + "\n------------------------------\n" ;
+        return " \n>>> Volunteer :" +
+                super.toString()+
+                "\nsalary= " + salary
+                + "\n------------------------------\n";
     }
 }

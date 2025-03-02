@@ -40,16 +40,13 @@ abstract class StaffMember {
         return count;
     }
 
-
-    // Abstract method to calculate pay
     abstract double pay();
 
     @Override
     public String toString() {
-        return ">>> StaffMember:\n" +
-                "ID = " + id +
+        return
+                "\nID = " + id +
                 "\nName = " + name +
-                "\nAddress = " + address +
-                "\n------------------------------\n";
+                "\nAddress = " + address;
     }
 }

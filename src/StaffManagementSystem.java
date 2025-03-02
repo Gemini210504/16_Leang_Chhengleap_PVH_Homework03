@@ -4,13 +4,17 @@ import org.nocrala.tools.texttablefmt.ShownBorders;
 import org.nocrala.tools.texttablefmt.Table;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
+//Have 3 section not fully check yet!
 public class StaffManagementSystem {
     Scanner sc = new Scanner(System.in);
     int pageSize = 4;
+    String reset = "\u001B[0m";
+    String red = "\u001B[31m";
+    String blue = "\u001B[34m";
+    String yellow = "\u001B[33m";
 
-    List<StaffMember> staffMembers = new ArrayList<>(Arrays.asList(
+    private List<StaffMember> staffMembers = new ArrayList<>(Arrays.asList(
             new Volunteer("Tina", "PP", 1, 0.0),
             new Volunteer("Lee", "SR", 4, 0.0),
             new SalariedEmployee("Fy", "KT", 5,300.0, 20),
@@ -19,7 +23,6 @@ public class StaffManagementSystem {
             new HourlySalaryEmployee("Ka", "PV", 6, 50, 10)
 
     ));
-//    List<StaffMember> staffMembers = new ArrayList<>();
     public StaffManagementSystem() {
         this.staffMembers.get(0).setId(1);
         this.staffMembers.get(1).setId(4);
@@ -30,12 +33,11 @@ public class StaffManagementSystem {
         staffMembers.sort(Comparator.comparingInt(StaffMember::getId));
     }
 
-
     int id = staffMembers.size();
-
+    //Not check with exception yet (Not done yet)❌
     public void insertVolunteer() {
         System.out.println("=> Input volunteer details:");
-        System.out.println("ID: " + (id + 1));
+        System.out.println("ID: " +  (id+1));
         System.out.print("Name: ");
         String name = sc.nextLine();
 
@@ -44,16 +46,16 @@ public class StaffManagementSystem {
         System.out.print("Salary: ");
         double salary = sc.nextDouble();
         sc.nextLine();
-
-        ++id;
-        Volunteer volunteer = new Volunteer(name,address,id, salary);
+        id++;
+        Volunteer volunteer = new Volunteer(name,address, (id+1), salary);
         staffMembers.add(volunteer);
         System.out.println("Volunteer added successfully!");
     }
 
+    //Not check with exception yet (No done yet)❌
     public void insertSalariedEmployee() {
         System.out.println("=> Input salaried employee details:");
-        System.out.println("ID: " + (id + 1));
+        System.out.println("ID: " +  (id+1));
         System.out.print("Name: ");
         String name = sc.nextLine();
 
@@ -65,16 +67,16 @@ public class StaffManagementSystem {
         System.out.print("Bonus: ");
         double bonus = sc.nextDouble();
         sc.nextLine();
-
-        ++id;
-        SalariedEmployee salariedEmployee = new SalariedEmployee(name,address,id, salary, bonus);
+        id++;
+        SalariedEmployee salariedEmployee = new SalariedEmployee(name,address, (id+1), salary, bonus);
         staffMembers.add(salariedEmployee);
         System.out.println("SalariedEmployee added successfully!");
     }
 
+    //Not check with exception yet (No done yet)❌
     public void insertHourlySalaryEmployee() {
         System.out.println("=> Input hourly salary employee details:");
-        System.out.println("ID: " + (id + 1));
+        System.out.println("ID: " +  (id+1));
         System.out.print("Name: ");
         String name = sc.nextLine();
 
@@ -88,15 +90,13 @@ public class StaffManagementSystem {
         double rate = sc.nextDouble();
         sc.nextLine();
 
-        ++id;
-        HourlySalaryEmployee hourlySalaryEmployee = new HourlySalaryEmployee(name,address, id , hourWorked, rate);
+        id++;
+        HourlySalaryEmployee hourlySalaryEmployee = new HourlySalaryEmployee(name,address,  (id+1) , hourWorked, rate);
         staffMembers.add(hourlySalaryEmployee);
         System.out.println("HourlySalaryEmployee added successfully!");
     }
 
-
-
-
+    // ចំណុច paginationDisplayEmployee បានធ្វើការផ្ទៀងផ្ទាត់ ដោយប្រើException រួចរាល់ និងដំណើរការតាម Requirement (Done)✅
     public void paginationDisplayEmployee() {
 
         int totalStaff = staffMembers.size();
@@ -113,23 +113,20 @@ public class StaffManagementSystem {
 
             int start = currentPage * pageSize;
             int end = Math.min(start + pageSize, totalStaff);
+            List<String> headerOfTable = new ArrayList<>(Arrays.asList(
+                    "Type", "ID", "Name", "Address", "Salary", "Bonus", "Hours", "Rate", "Pay"
+            ));
             CellStyle cell = new CellStyle(CellStyle.HorizontalAlign.center);
-            Table t = new Table(9, BorderStyle.UNICODE_BOX_DOUBLE_BORDER, ShownBorders.ALL);
+            Table t = new Table(headerOfTable.size(), BorderStyle.UNICODE_BOX_DOUBLE_BORDER, ShownBorders.ALL);
 
-            for (int i = 0; i < 9; i++) {
+            for (int i = 0; i < headerOfTable.size(); i++) {
                 t.setColumnWidth(i, 15, 20);
             }
 
-            t.addCell("Staff List (Page " + (currentPage + 1) + " of " + totalPages + ")", cell, 9);
-            t.addCell("Type", cell);
-            t.addCell("ID", cell);
-            t.addCell("Name", cell);
-            t.addCell("Address", cell);
-            t.addCell("Salary", cell);
-            t.addCell("Bonus", cell);
-            t.addCell("Hours", cell);
-            t.addCell("Rate", cell);
-            t.addCell("Pay", cell);
+            t.addCell(" Staff List (Page " + (currentPage + 1) + " of " + totalPages + ") ", cell, headerOfTable.size());
+            for (String header : headerOfTable) {
+                t.addCell(header, cell);
+            }
 
             for (int i = start; i < end; i++) {
                 StaffMember staff = staffMembers.get(i);
@@ -165,52 +162,51 @@ public class StaffManagementSystem {
 
             System.out.println(t.render());
 
-            System.out.println("1. First Page \t\t\t 2. Next Page \t\t\t 3. Previous Page \t\t\t 4. Last Page \t\t\t 5. Exit");
-            System.out.print("Enter choice: ");
-            int choice = sc.nextInt();
-            sc.nextLine();
 
-            if (choice == 1) {
-                currentPage = 0;
-            } else if (choice == 2) {
-                if (currentPage < totalPages - 1) {
-                    currentPage++;
-                } else {
-                    System.out.println("Already on the last page!");
+            int choice;
+            while (true) {
+                try {
+                    System.out.println("1. First Page \t\t\t 2. Next Page \t\t\t 3. Previous Page \t\t\t 4. Last Page \t\t\t 5. Exit");
+                    System.out.print("Enter choice: ");
+                    choice = sc.nextInt();
+                    sc.nextLine();
+
+                    switch (choice) {
+                        case 1: currentPage = 0; break;
+                        case 2:
+                            if (currentPage < totalPages - 1) currentPage++;
+                            else System.out.println("Already on the last page!");
+                            break;
+                        case 3:
+                            if (currentPage > 0) currentPage--;
+                            else System.out.println("Already on the first page!");
+                            break;
+                        case 4: currentPage = totalPages - 1; break;
+                        case 5: return;
+                        default:
+                            System.out.println("Invalid choice, please choose between [1-5].");
+                            continue;
+                    }
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println(red + "Error input pagination!" + reset);
+                    sc.nextLine();
                 }
-            } else if (choice == 3) {
-                if (currentPage > 0) {
-                    currentPage--;
-                } else {
-                    System.out.println("Already on the first page!");
-                }
-            } else if (choice == 4) {
-                currentPage = totalPages - 1;
-            } else if (choice == 5) {
-                break;
-            } else {
-                System.out.println("Choose only between [1-5]!");
             }
         }
     }
 
 
+    //( Done only for show , it calls method paginationDisplayEmployee() )✅
     public void displayAllType() {
-//        staffMembers.get(0).setId(1);
-//        staffMembers.get(1).setId(4);
-//        staffMembers.get(2).setId(5);
-//        staffMembers.get(3).setId(2);
-//        staffMembers.get(4).setId(3);
-//        staffMembers.get(5).setId(6);
-//
-//        staffMembers.sort(Comparator.comparingInt(StaffMember::getId));
         paginationDisplayEmployee();
     }
 
+    // តារាងសម្រាប់បង្ហាញ Data ដែល Update ទៅតាម type នីមួយៗ (Done)✅
     public void tableUpdate(StaffMember updateStaffMember, int updateColumn) {
 
         List<String> headers = new ArrayList<>(Arrays.asList("Type", "ID", "Name", "Address"));
-        List<Integer> columnWidth = new ArrayList<>(Arrays.asList(15, 15, 30, 30));
+        List<Integer> columnWidth = new ArrayList<>(Arrays.asList(20, 15, 30, 30));
 
         if (updateStaffMember instanceof Volunteer) {
             headers.add("Salary");
@@ -268,86 +264,148 @@ public class StaffManagementSystem {
         System.out.println(t.render());
     }
 
+    // ចំណុច updateInformation បានធ្វើការផ្ទៀងផ្ទាត់ ដោយប្រើException រួចរាល់ និងដំណើរការតាម Requirement (Done)✅
     public void updateInformation() {
         System.out.println("================ Update Employee =================");
 
         System.out.print("=> Enter or Search ID to update: ");
-        int updateId = sc.nextInt();
-        sc.nextLine();
+        int updateId;
+        try {
+            updateId = sc.nextInt();
+            sc.nextLine();
+        } catch (InputMismatchException err) {
+            System.out.println(red + "Error input Search ID: Please enter a valid number! " + reset);
+            sc.nextLine();
+            return;
+        }
+
         StaffMember updateStaffMember = staffMembers.stream()
                 .filter(x -> x.getId() == updateId)
                 .findFirst()
                 .orElse(null);
 
-        if (updateStaffMember != null) {
-            int updateColumn = 0;
-            tableUpdate(updateStaffMember, updateColumn);
+        if (updateStaffMember == null) {
+            System.out.println(red + "Employee with ID " + blue + updateId + reset + red + " not found in system!" + reset);
+            return;
+        }
 
-            if (updateStaffMember instanceof Volunteer) {
-                System.out.println("[1]. Name \t\t [2]. Address \t\t [3]. Salary \t\t [4]. Cancel");
-            } else if (updateStaffMember instanceof SalariedEmployee) {
-                System.out.println("[1]. Name \t\t [2]. Address \t\t [3]. Salary \t\t [4]. Bonus \t\t [5]. Cancel");
-            } else if (updateStaffMember instanceof HourlySalaryEmployee) {
-                System.out.println("[1]. Name \t\t [2]. Address \t\t [3]. HoursWorked \t\t [4]. Rate \t\t [5]. Cancel");
+        int updateColumn = 0;
+        tableUpdate(updateStaffMember, updateColumn);
+
+        if (updateStaffMember instanceof Volunteer) {
+            System.out.println("[1] Name  \t|  [2] Address  \t|  [3] Salary  \t|  [4] Cancel");
+        } else if (updateStaffMember instanceof SalariedEmployee) {
+            System.out.println("[1] Name  \t|  [2] Address  \t|  [3] Salary  \t|  [4] Bonus  \t|  [5] Cancel");
+        } else if (updateStaffMember instanceof HourlySalaryEmployee) {
+            System.out.println("[1] Name  \t|  [2] Address  \t|  [3] Hours Worked  \t|  [4] Rate  \t|  [5] Cancel");
+        }
+        while (true) {
+            while (true) {
+                try {
+                    System.out.print("Choose column to update: ");
+                    updateColumn = sc.nextInt();
+                    sc.nextLine();
+
+                    if ((updateStaffMember instanceof Volunteer && updateColumn >= 1 && updateColumn <= 4) ||
+                            (updateStaffMember instanceof SalariedEmployee && updateColumn >= 1 && updateColumn <= 5) ||
+                            (updateStaffMember instanceof HourlySalaryEmployee && updateColumn >= 1 && updateColumn <= 5)) {
+                        break;
+                    } else {
+                        System.out.println(red + "Invalid option! Please choose a valid column." + reset);
+                    }
+                } catch (InputMismatchException err) {
+                    System.out.println(red + "Error input: Please enter a valid number!" + reset);
+                    sc.nextLine();
+                }
             }
 
-            System.out.print("Choose column to update: ");
-            updateColumn = sc.nextInt();
-            sc.nextLine();
 
-            if (updateColumn == 1) {
-                System.out.print("Change name: ");
-                String name = sc.nextLine();
-                updateStaffMember.setName(name);
-            } else if (updateColumn == 2) {
-                System.out.print("Change address: ");
-                String address = sc.nextLine();
-                updateStaffMember.setAddress(address);
-            } else if (updateColumn == 3) {
-                if (updateStaffMember instanceof Volunteer) {
-                    System.out.println("Change salary: ");
-                    double salary = sc.nextDouble();
-                    ((Volunteer) updateStaffMember).setSalary(salary);
-                } else if (updateStaffMember instanceof SalariedEmployee) {
-                    System.out.println("Change salary: ");
-                    double salary = sc.nextDouble();
-                    ((SalariedEmployee) updateStaffMember).setSalary(salary);
+
+
+            try {
+                switch (updateColumn) {
+                    case 1:
+                        System.out.print("Change name: ");
+                        String name = sc.nextLine();
+                        updateStaffMember.setName(name);
+                        break;
+
+                    case 2:
+                        System.out.print("Change address: ");
+                        String address = sc.nextLine();
+                        updateStaffMember.setAddress(address);
+                        break;
+
+                    case 3:
+                        if (updateStaffMember instanceof Volunteer) {
+                            System.out.print("Change salary: ");
+                            double salary = sc.nextDouble();
+                            sc.nextLine();
+                            ((Volunteer) updateStaffMember).setSalary(salary);
+                        } else if (updateStaffMember instanceof SalariedEmployee) {
+                            System.out.print("Change salary: ");
+                            double salary = sc.nextDouble();
+                            sc.nextLine();
+                            ((SalariedEmployee) updateStaffMember).setSalary(salary);
+                        } else if (updateStaffMember instanceof HourlySalaryEmployee) {
+                            System.out.print("Change hours worked: ");
+                            int hoursWorked = sc.nextInt();
+                            sc.nextLine();
+                            ((HourlySalaryEmployee) updateStaffMember).setHourWorked(hoursWorked);
+                        }
+                        break;
+
+                    case 4:
+                        if (updateStaffMember instanceof SalariedEmployee) {
+                            System.out.print("Change bonus: ");
+                            double bonus = sc.nextDouble();
+                            sc.nextLine();
+                            ((SalariedEmployee) updateStaffMember).setBonus(bonus);
+                        } else if (updateStaffMember instanceof HourlySalaryEmployee) {
+                            System.out.print("Change rate: ");
+                            double rate = sc.nextDouble();
+                            sc.nextLine();
+                            ((HourlySalaryEmployee) updateStaffMember).setRate(rate);
+                        } else {
+                            System.out.println(red + "You have canceled updating from " + reset + yellow + updateStaffMember + reset);
+                            return;
+                        }
+                        break;
+
+                    case 5:
+                        System.out.println(red + "You have canceled updating from " + reset + yellow + updateStaffMember + reset);
+                        return;
+
+                    default:
+                        System.out.println(red + "Invalid option! No updates made." + reset);
                 }
-            } else if (updateColumn == 4) {
-                if (updateStaffMember instanceof SalariedEmployee) {
-                    System.out.println("Change bonus: ");
-                    double bonus = sc.nextDouble();
-                    ((SalariedEmployee) updateStaffMember).setBonus(bonus);
-                } else if (updateStaffMember instanceof HourlySalaryEmployee) {
-                    System.out.println("Change hours worked: ");
-                    int hoursWorked = sc.nextInt();
-                    ((HourlySalaryEmployee) updateStaffMember).setHourWorked(hoursWorked);
-                }
-            } else if (updateColumn == 5) {
-                return;
+            } catch (InputMismatchException err) {
+                System.out.println(red + "Error: Invalid input. Please enter the correct data type!" + reset);
+                sc.nextLine();
             }
-
             tableUpdate(updateStaffMember, updateColumn);
-        } else {
-            System.out.println("Error: Employee with ID " + updateId + " not found!");
+
         }
     }
 
-
+    //(Done)✅
     public void removeEmployee() {
         System.out.println("================ Remove Employee ===================");
         System.out.print("Enter ID to remove: ");
-        int removeId = sc.nextInt();
 
-        // Try to remove the employee based on the given ID
-        boolean removed = staffMembers.removeIf(x -> x.getId() == removeId);
-
-        if (removed) {
-            System.out.println("Removed employee with ID " + removeId + " successfully.");
-        } else {
-            System.out.println("Error: Employee with ID " + removeId + " not found!");
+        int removeId;
+        try {
+            removeId = sc.nextInt();
+            boolean removed = staffMembers.removeIf(x -> x.getId() == removeId);
+            if (removed) {
+                System.out.println("Removed employee with ID " + removeId + " successfully.");
+            } else {
+                System.out.println("Error: Employee with ID " + removeId + " not found!");
+            }
+        } catch (InputMismatchException err) {
+            System.out.println(red + "Error input remove!" + reset);
+            sc.nextLine();
         }
     }
-
 
 }

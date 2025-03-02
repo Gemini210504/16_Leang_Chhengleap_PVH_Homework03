@@ -31,8 +31,9 @@ public class SalariedEmployee extends StaffMember {
 
     @Override
     public String toString() {
-        return super.toString() +
-                "Salary = " + salary +
+        return "\n>>> Salaried Employee : "+
+                super.toString() +
+                "\nSalary = " + salary +
                 "\nBonus = " + bonus +
                 "\n------------------------------\n";
     }

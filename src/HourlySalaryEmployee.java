@@ -31,11 +31,10 @@ public class HourlySalaryEmployee extends StaffMember{
 
     @Override
     public String toString() {
-        return ">>> HourlySalaryEmployee : \n" +
-                "\nhourWorked= " + hourWorked +
-                "\n rate= " + rate +
-                "\n id=" + id +
-                "\n name= " + name +
-                "\n address= " + address + "\n------------------------------\n" ;
+        return "\n>>> HourlySalaryEmployee : " +
+                super.toString()+
+                "\nHourWorked= " + hourWorked +
+                "\nRate= " + rate +
+                "\n------------------------------\n";
     }
 }

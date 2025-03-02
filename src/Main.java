@@ -30,7 +30,7 @@ public class Main {
                     actions.put(3, x -> managementSystem.insertHourlySalaryEmployee());
                     actions.put(4, x -> System.out.println("Returning to previous menu..."));
 
-                    System.out.println("[1]. Volunteer \t\t [2]. Salaried Employee \t\t [3]. Hourly Employee [4]. Back");
+                    System.out.println("[1]. Volunteer \t\t [2]. Salaried Employee \t\t [3]. Hourly Employee \t\t [4]. Back");
                     System.out.print("Choose Type: ");
 
                     if (sc.hasNextInt()) {

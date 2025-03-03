@@ -15,12 +15,12 @@ public class StaffManagementSystem {
     String yellow = "\u001B[33m";
 
     private List<StaffMember> staffMembers = new ArrayList<>(Arrays.asList(
-            new Volunteer("Tina", "PP", 1, 0.0),
-            new Volunteer("Lee", "SR", 4, 0.0),
-            new SalariedEmployee("Fy", "KT", 5,300.0, 20),
-            new SalariedEmployee("Dana", "KPS", 2,300.0, 10.0),
-            new HourlySalaryEmployee("Sokha", "BTB", 3, 60, 10),
-            new HourlySalaryEmployee("Ka", "PV", 6, 50, 10)
+            new Volunteer("Tong Suhan", "Phnom Penh", 1, 0.0),
+            new Volunteer("Lim Dara", "Siem Reap", 4, 0.0),
+            new SalariedEmployee("Tang Kimhu", "Kompot", 5,300.0, 20),
+            new SalariedEmployee("Meas Sreysor", "Kompong Cham", 2,300.0, 10.0),
+            new HourlySalaryEmployee("Van Kimsorng", "Battambong", 3, 60, 10),
+            new HourlySalaryEmployee("Mey Sovann", "Preas Vihea", 6, 50, 10)
 
     ));
     public StaffManagementSystem() {
@@ -34,66 +34,87 @@ public class StaffManagementSystem {
     }
 
     int id = staffMembers.size();
-    //Not check with exception yet (Not done yet)❌
+    //(Have done)✅
     public void insertVolunteer() {
-        System.out.println("=> Input volunteer details:");
-        System.out.println("ID: " +  (id+1));
-        System.out.print("Name: ");
-        String name = sc.nextLine();
 
-        System.out.print("Address: ");
-        String address = sc.nextLine();
-        System.out.print("Salary: ");
-        double salary = sc.nextDouble();
-        sc.nextLine();
-        id++;
-        Volunteer volunteer = new Volunteer(name,address, (id+1), salary);
-        staffMembers.add(volunteer);
-        System.out.println("Volunteer added successfully!");
+        try {
+            System.out.println("=> Input volunteer details:");
+            System.out.println(blue+"ID: " + (id + 1)+reset);
+            System.out.print("Name: ");
+            String name = sc.nextLine();
+            System.out.print("Address: ");
+            String address = sc.nextLine();
+            System.out.print("Salary: ");
+            double salary = sc.nextDouble();
+            sc.nextLine();
+
+            id++;
+            Volunteer volunteer = new Volunteer(name, address, (id + 1), salary);
+            staffMembers.add(volunteer);
+            System.out.println(blue+"Volunteer ID["+(id)+"] added successfully!"+ reset);
+
+        } catch (InputMismatchException err) {
+            System.out.println(red + "Error input Volunteer!" + reset);
+            sc.nextLine();
+
+        }
+
     }
 
-    //Not check with exception yet (No done yet)❌
+    //(Have done)✅
     public void insertSalariedEmployee() {
-        System.out.println("=> Input salaried employee details:");
-        System.out.println("ID: " +  (id+1));
-        System.out.print("Name: ");
-        String name = sc.nextLine();
+        try {
+            System.out.println("=> Input salaried employee details:");
+            System.out.println(blue+"ID: " + (id + 1)+reset);
+            System.out.print("Name: ");
+            String name = sc.nextLine();
 
-        System.out.print("Address: ");
-        String address = sc.nextLine();
-        System.out.print("Salary: ");
-        double salary = sc.nextDouble();
+            System.out.print("Address: ");
+            String address = sc.nextLine();
+            System.out.print("Salary: ");
+            double salary = sc.nextDouble();
 
-        System.out.print("Bonus: ");
-        double bonus = sc.nextDouble();
-        sc.nextLine();
-        id++;
-        SalariedEmployee salariedEmployee = new SalariedEmployee(name,address, (id+1), salary, bonus);
-        staffMembers.add(salariedEmployee);
-        System.out.println("SalariedEmployee added successfully!");
+            System.out.print("Bonus: ");
+            double bonus = sc.nextDouble();
+            sc.nextLine();
+            id++;
+            SalariedEmployee salariedEmployee = new SalariedEmployee(name, address, (id + 1), salary, bonus);
+            staffMembers.add(salariedEmployee);
+            System.out.println(blue+"Salaried Employee ID ["+(id)+"] added successfully!"+reset);
+        }catch (InputMismatchException err){
+            System.out.println(red+"Error input Salaried Employee!"+reset);
+            sc.nextLine();
+        }
     }
 
-    //Not check with exception yet (No done yet)❌
+    //(Have done)✅
     public void insertHourlySalaryEmployee() {
-        System.out.println("=> Input hourly salary employee details:");
-        System.out.println("ID: " +  (id+1));
-        System.out.print("Name: ");
-        String name = sc.nextLine();
+        try {
+            System.out.println("=> Input hourly salary employee details:");
+            System.out.println(blue+"ID: " + (id + 1)+reset);
+            System.out.print("Name: ");
+            String name = sc.nextLine();
 
-        System.out.print("Address: ");
-        String address = sc.nextLine();
+            System.out.print("Address: ");
+            String address = sc.nextLine();
 
-        System.out.print("Hours Worked: ");
-        int hourWorked = sc.nextInt();
+            System.out.print("Hours Worked: ");
+            int hourWorked = sc.nextInt();
 
-        System.out.print("Rate: ");
-        double rate = sc.nextDouble();
-        sc.nextLine();
+            System.out.print("Rate: ");
+            double rate = sc.nextDouble();
+            sc.nextLine();
 
-        id++;
-        HourlySalaryEmployee hourlySalaryEmployee = new HourlySalaryEmployee(name,address,  (id+1) , hourWorked, rate);
-        staffMembers.add(hourlySalaryEmployee);
-        System.out.println("HourlySalaryEmployee added successfully!");
+            id++;
+            HourlySalaryEmployee hourlySalaryEmployee = new HourlySalaryEmployee(name, address, (id + 1), hourWorked, rate);
+            staffMembers.add(hourlySalaryEmployee);
+            System.out.println(blue+"Hourly Salary Employee ID["+(id)+"] added successfully!"+reset);
+        }
+        catch (InputMismatchException err){
+            System.out.println(red+"Error input Hourly Salary Employee!"+reset);
+            sc.nextLine();
+
+        }
     }
 
     // ចំណុច paginationDisplayEmployee បានធ្វើការផ្ទៀងផ្ទាត់ ដោយប្រើException រួចរាល់ និងដំណើរការតាម Requirement (Done)✅
@@ -120,7 +141,7 @@ public class StaffManagementSystem {
             Table t = new Table(headerOfTable.size(), BorderStyle.UNICODE_BOX_DOUBLE_BORDER, ShownBorders.ALL);
 
             for (int i = 0; i < headerOfTable.size(); i++) {
-                t.setColumnWidth(i, 15, 20);
+                t.setColumnWidth(i, 20, 40);
             }
 
             t.addCell(" Staff List (Page " + (currentPage + 1) + " of " + totalPages + ") ", cell, headerOfTable.size());
@@ -203,30 +224,30 @@ public class StaffManagementSystem {
     }
 
     // តារាងសម្រាប់បង្ហាញ Data ដែល Update ទៅតាម type នីមួយៗ (Done)✅
-    public void tableUpdate(StaffMember updateStaffMember, int updateColumn) {
+    public void tableUpdate(StaffMember updateStaffMember) {
 
         List<String> headers = new ArrayList<>(Arrays.asList("Type", "ID", "Name", "Address"));
-        List<Integer> columnWidth = new ArrayList<>(Arrays.asList(20, 15, 30, 30));
+        List<Integer> columnWidth = new ArrayList<>(Arrays.asList(30, 15, 30, 30));
 
         if (updateStaffMember instanceof Volunteer) {
             headers.add("Salary");
             headers.add("Pay");
-            columnWidth.add(15);
-            columnWidth.add(15);
+            columnWidth.add(20);
+            columnWidth.add(20);
         } else if (updateStaffMember instanceof SalariedEmployee) {
             headers.add("Salary");
             headers.add("Bonus");
             headers.add("Pay");
-            columnWidth.add(15);
-            columnWidth.add(15);
-            columnWidth.add(15);
+            columnWidth.add(20);
+            columnWidth.add(20);
+            columnWidth.add(20);
         } else if (updateStaffMember instanceof HourlySalaryEmployee) {
             headers.add("Hours");
             headers.add("Rate");
             headers.add("Pay");
-            columnWidth.add(15);
-            columnWidth.add(15);
-            columnWidth.add(15);
+            columnWidth.add(20);
+            columnWidth.add(20);
+            columnWidth.add(20);
         }
 
         CellStyle cell = new CellStyle(CellStyle.HorizontalAlign.center);
@@ -290,19 +311,20 @@ public class StaffManagementSystem {
         }
 
         int updateColumn = 0;
-        tableUpdate(updateStaffMember, updateColumn);
+        tableUpdate(updateStaffMember);
 
-        if (updateStaffMember instanceof Volunteer) {
-            System.out.println("[1] Name  \t|  [2] Address  \t|  [3] Salary  \t|  [4] Cancel");
-        } else if (updateStaffMember instanceof SalariedEmployee) {
-            System.out.println("[1] Name  \t|  [2] Address  \t|  [3] Salary  \t|  [4] Bonus  \t|  [5] Cancel");
-        } else if (updateStaffMember instanceof HourlySalaryEmployee) {
-            System.out.println("[1] Name  \t|  [2] Address  \t|  [3] Hours Worked  \t|  [4] Rate  \t|  [5] Cancel");
-        }
+
         while (true) {
+            if (updateStaffMember instanceof Volunteer) {
+                System.out.println("[1] Name  \t|  [2] Address  \t|  [3] Salary  \t|  [4] Cancel");
+            } else if (updateStaffMember instanceof SalariedEmployee) {
+                System.out.println("[1] Name  \t|  [2] Address  \t|  [3] Salary  \t|  [4] Bonus  \t|  [5] Cancel");
+            } else if (updateStaffMember instanceof HourlySalaryEmployee) {
+                System.out.println("[1] Name  \t|  [2] Address  \t|  [3] Hours Worked  \t|  [4] Rate  \t|  [5] Cancel");
+            }
             while (true) {
                 try {
-                    System.out.print("Choose column to update: ");
+                    System.out.print("Choose column to update or cancel: ");
                     updateColumn = sc.nextInt();
                     sc.nextLine();
 
@@ -367,13 +389,13 @@ public class StaffManagementSystem {
                             sc.nextLine();
                             ((HourlySalaryEmployee) updateStaffMember).setRate(rate);
                         } else {
-                            System.out.println(red + "You have canceled updating from " + reset + yellow + updateStaffMember + reset);
+                            System.out.println(red + "You have canceled updating return to menu"+reset);
                             return;
                         }
                         break;
 
                     case 5:
-                        System.out.println(red + "You have canceled updating from " + reset + yellow + updateStaffMember + reset);
+                        System.out.println(red + "You have canceled updating return to menu"+reset);
                         return;
 
                     default:
@@ -383,7 +405,7 @@ public class StaffManagementSystem {
                 System.out.println(red + "Error: Invalid input. Please enter the correct data type!" + reset);
                 sc.nextLine();
             }
-            tableUpdate(updateStaffMember, updateColumn);
+            tableUpdate(updateStaffMember);
 
         }
     }
@@ -398,9 +420,9 @@ public class StaffManagementSystem {
             removeId = sc.nextInt();
             boolean removed = staffMembers.removeIf(x -> x.getId() == removeId);
             if (removed) {
-                System.out.println("Removed employee with ID " + removeId + " successfully.");
+                System.out.println(yellow+"Removed employee with ID " + removeId + " successfully."+reset);
             } else {
-                System.out.println("Error: Employee with ID " + removeId + " not found!");
+                System.out.println(red+"Error: Employee with ID " + removeId + " not found!"+reset);
             }
         } catch (InputMismatchException err) {
             System.out.println(red + "Error input remove!" + reset);

@@ -10,36 +10,36 @@ public class Main {
         String red = "\u001B[31m";
         String blue = "\u001B[34m";
         StaffManagementSystem managementSystem = new StaffManagementSystem();
-
+        tableMenuManagement tableMenu = new tableMenuManagement();
         String menu;
         do {
-            System.out.println("============================== STAFF MANAGEMENT SYSTEM ===========================");
-            System.out.println("[1]. Insert Employee");
-            System.out.println("[2]. Update Employee");
-            System.out.println("[3]. Display Employee");
-            System.out.println("[4]. Remove Employee");
-            System.out.println("[5]. Exit");
-            System.out.println("==================================================================================");
-            System.out.print("Choose your option: ");
+            tableMenu.tableMenuChoice();
             menu = sc.nextLine();
             switch (menu) {
                 case "1": {
                     Map<Integer, Consumer<String>> actions = new HashMap<>();
+
                     actions.put(1, x -> managementSystem.insertVolunteer());
                     actions.put(2, x -> managementSystem.insertSalariedEmployee());
                     actions.put(3, x -> managementSystem.insertHourlySalaryEmployee());
-                    actions.put(4, x -> System.out.println("Returning to previous menu..."));
+                    actions.put(4, x -> System.out.println(blue+"Returning to previous menu..."+reset));
 
+                    while (true) {
                     System.out.println("[1]. Volunteer \t\t [2]. Salaried Employee \t\t [3]. Hourly Employee \t\t [4]. Back");
                     System.out.print("Choose Type: ");
+                        if (sc.hasNextInt()) {
+                            int choice = sc.nextInt();
+                            sc.nextLine();
 
-                    if (sc.hasNextInt()) {
-                        int choice = sc.nextInt();
-                        sc.nextLine();
-                        actions.getOrDefault(choice, x -> System.out.println("Invalid type")).accept("choice");
-                    } else {
-                        System.out.println("Invalid input. Please enter a number.");
-                        sc.nextLine();
+                            actions.getOrDefault(choice, x -> System.out.println("Invalid type! >>> ")).accept("choice");
+                            if (choice == 4) {
+                                break;
+                            }
+                        } else {
+                            System.out.println(blue+"Invalid input. Please enter a number."+reset);
+                            sc.nextLine();
+                            break;
+                        }
                     }
 
                     break;
@@ -60,14 +60,14 @@ public class Main {
                     break;
                 }
                 case "5": {
-                    System.out.println("Thank you");
+                    System.out.println(blue+"Thank you😊🙏❤️"+reset);
                     break;
                 }
 
                 default:
                     System.out.println(red + "Invalid option, please try again." + reset);
             }
-        }while (!menu.equals("8"));
+        }while (!menu.equals("5"));
 
     }
 

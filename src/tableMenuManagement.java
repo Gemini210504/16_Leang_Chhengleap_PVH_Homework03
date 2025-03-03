@@ -20,7 +20,4 @@ public class tableMenuManagement {
         System.out.println(t.render());
         System.out.print("Choose your option: ");
     }
-
-
-
 }

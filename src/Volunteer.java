@@ -11,11 +11,10 @@ public class Volunteer extends StaffMember {
         return salary;
     }
 
-    public Volunteer setSalary(double salary) {
+    public String setSalary(double salary) {
         this.salary = salary;
         return null;
     }
-
 
     @Override
     double pay() {

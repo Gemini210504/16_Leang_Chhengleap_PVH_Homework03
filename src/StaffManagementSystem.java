@@ -5,7 +5,7 @@ import org.nocrala.tools.texttablefmt.Table;
 
 import java.util.*;
 
-//Have 3 section not fully check yet!
+
 public class StaffManagementSystem {
     Scanner sc = new Scanner(System.in);
     int pageSize = 4;
@@ -117,7 +117,7 @@ public class StaffManagementSystem {
         }
     }
 
-    // ចំណុច paginationDisplayEmployee បានធ្វើការផ្ទៀងផ្ទាត់ ដោយប្រើException រួចរាល់ និងដំណើរការតាម Requirement (Done)✅
+//    (Have done)✅
     public void paginationDisplayEmployee() {
 
         int totalStaff = staffMembers.size();
@@ -217,8 +217,7 @@ public class StaffManagementSystem {
         }
     }
 
-
-    //( Done only for show , it calls method paginationDisplayEmployee() )✅
+    //(Have done)✅
     public void displayAllType() {
         paginationDisplayEmployee();
     }
@@ -285,7 +284,7 @@ public class StaffManagementSystem {
         System.out.println(t.render());
     }
 
-    // ចំណុច updateInformation បានធ្វើការផ្ទៀងផ្ទាត់ ដោយប្រើException រួចរាល់ និងដំណើរការតាម Requirement (Done)✅
+    //(Have done)✅
     public void updateInformation() {
         System.out.println("================ Update Employee =================");
 
@@ -410,7 +409,7 @@ public class StaffManagementSystem {
         }
     }
 
-    //(Done)✅
+    //(Have done)✅
     public void removeEmployee() {
         System.out.println("================ Remove Employee ===================");
         System.out.print("Enter ID to remove: ");

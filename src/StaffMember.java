@@ -22,7 +22,7 @@ abstract class StaffMember {
         return name;
     }
 
-    public Volunteer setName(String name) {
+    public String setName(String name) {
         this.name = name;
         return null;
     }
@@ -31,7 +31,7 @@ abstract class StaffMember {
         return address;
     }
 
-    public Volunteer setAddress(String address) {
+    public String setAddress(String address) {
         this.address = address;
         return null;
     }

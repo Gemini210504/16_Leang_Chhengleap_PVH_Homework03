@@ -44,7 +44,6 @@ public class Main {
 
                     break;
                 }
-
                 case "2": {
 
                     managementSystem.updateInformation();
@@ -63,7 +62,6 @@ public class Main {
                     System.out.println(blue+"Thank you😊🙏❤️"+reset);
                     break;
                 }
-
                 default:
                     System.out.println(red + "Invalid option, please try again." + reset);
             }
